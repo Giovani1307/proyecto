@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cal.css">
+    <title>Fisica</title>
+</head>
+<body>
+        <header class="header">
+            <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+                <div class="logo">
+                    <h1>Otros temas</h1>
+                </div>
+                <nav class="menu">
+                    <a href="#">Inicio</a>
+                    <a href="">Nosotros</a>
+                </nav>
+            </div>
+        </header>
+        <div class="capa"></div>
+    <input type="checkbox" id="btn-menu">
+    <div class="container-menu">
+        <div class="cont-menu">
+            <nav>
+                <a href="elasticidad.html">Elasticidad</a>
+                <a href="estados-materia.html">Estados de la materia</a>
+                <a href="estatica.html">Electricidad estatica</a>
+            </nav>
+            <label for="btn-menu">✖️</label>
+        </div>
+    </div>
+    <div class="contenedor-transparente">
+        <center><h2 class="titulo">cinemática</h2></center>
+        <p>El movimiento en un plano inclinado presenta un desafío interesante debido a la influencia de la gravedad y la inclinación del plano. Utilizando las ecuaciones y principios de la cinemática, podemos determinar la posición exacta del objeto en cada segundo a lo largo de su trayectoria.</p>
+    </div>
+     <section class="form-register">
+        <h4>PlanoCalc</h4>
+        <input class="controls" type="text" name="angulo" id="angulo" placeholder="ingrese el angulo">
+        <input class="controls" type="text" name="masa" id="masa" placeholder="ingrese la masa en Kg">
+        <input class="controls" type="text" name="tiempo" id="tiempo" placeholder="ingrese el tiempo en segundos">
+        <input class="botons" type="submit" value="Calcular" onclick="posicion_en_t()">
+        <div id="resultado-container"></div>
+    </section>
+    <script>
+        function posicion_en_t() {
+          try {
+            var angulo = parseFloat(document.getElementById("angulo").value);
+            var masa = parseFloat(document.getElementById("masa").value);
+            var tiempo = parseInt(document.getElementById("tiempo").value);
+          } catch (error) {
+            console.log("Uno de los datos ingresados es incorrecto.");
+            return;
+          }
+    
+          if (0 < angulo && angulo < 90) {
+            var angulo_rad = (angulo * Math.PI) / 180;
+            var px = masa * Math.sin(angulo_rad) * 9.81;
+            var a = px / masa;
+            var resultadoContainer = document.getElementById("resultado-container");
+            resultadoContainer.innerHTML = ""; // Limpiar resultados anteriores
+            for (var i = 1; i <= tiempo; i++) {
+              var posicion_t = (a * Math.pow(i, 2)) / 2;
+              var resultadoDiv = document.createElement("div");
+              resultadoDiv.classList.add("resultado");
+              resultadoDiv.textContent = `En el tiempo ${i}s está en la posición ${posicion_t.toFixed(2)}m.`;
+              resultadoContainer.appendChild(resultadoDiv);
+            }
+          } else {
+            console.log("Ingrese el ángulo en el intervalo indicado.");
+          }
+        }
+    </script>
+</body>
+</html>
